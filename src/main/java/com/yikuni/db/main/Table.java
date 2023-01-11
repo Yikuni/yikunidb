@@ -2,11 +2,10 @@ package com.yikuni.db.main;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 
-public class Table<T> {
+public class Table<T> implements Iterable<T>{
     private String name;
     private List<T> data;
     private SerializeStrategy strategy;
@@ -155,5 +154,20 @@ public class Table<T> {
 
     protected void setClazz(Class<T> clazz) {
         this.clazz = clazz;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return data.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return Iterable.super.spliterator();
     }
 }
